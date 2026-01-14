@@ -3,5 +3,5 @@ export function makeNewTodo(description: string) {
     id: crypto.randomUUID(),
     description,
     createdAt: new Date().toISOString(),
-  };
+  }
 }
