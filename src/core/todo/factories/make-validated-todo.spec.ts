@@ -1,14 +1,14 @@
-import * as sanitizeStrMod from "@/utils/sanitize-str";
+import * as sanitizeStrMod from '@/utils/sanitize-str';
+import * as validateTodoDescriptionMod from '../schemas/validate-todo-description';
+import * as makeNewTodoMod from './make-new-todo';
 import {
-  InvalidTodo,
+  type InvalidTodo,
   makeValidatedTodo,
-  ValidTodo,
-} from "./make-validated-todo";
-import * as makeNewTodoMod from "./make-new-todo";
-import * as validateTodoDescriptionMod from "../schemas/validate-todo-description";
+  type ValidTodo,
+} from './make-validated-todo';
 
-describe("makeValidatedTodo (unit)", () => {
-  test("deve chamar a função sanitizeStr com o valor corrento", () => {
+describe('makeValidatedTodo (unit)', () => {
+  test('deve chamar a função sanitizeStr com o valor corrento', () => {
     // Arrange
     const { description, sanitizeStrSpy } = makeMocks();
 
@@ -21,35 +21,35 @@ describe("makeValidatedTodo (unit)", () => {
     expect(sanitizeStrSpy).toHaveBeenCalledTimes(1);
   });
 
-  test("deve chamar a função validateTodoDescription com o retorno de sanitizeStr", () => {
+  test('deve chamar a função validateTodoDescription com o retorno de sanitizeStr', () => {
     // Arrange
     const { description, sanitizeStrSpy, validatedTodoDescriptionSpy } =
       makeMocks();
-    const sanitizeStrReturn = "retorno da sanitizeStr";
+    const sanitizeStrReturn = 'retorno da sanitizeStr';
     sanitizeStrSpy.mockReturnValue(sanitizeStrReturn);
     // Act
     makeValidatedTodo(description) as ValidTodo;
     // Assert
     expect(validatedTodoDescriptionSpy).toHaveBeenCalledExactlyOnceWith(
-      sanitizeStrReturn
+      sanitizeStrReturn,
     );
   });
 
-  test("deve chamar a função makeNewTodo se validateTodoDescription retornou sucesso", () => {
+  test('deve chamar a função makeNewTodo se validateTodoDescription retornou sucesso', () => {
     // Arrange
     const { description } = makeMocks();
     // Act
     const result = makeValidatedTodo(description) as ValidTodo;
     // Assert
     expect(result.success).toBe(true);
-    expect(result.data.id).toBe("any-id");
-    expect(result.data.description).toBe("  New Todo  ");
+    expect(result.data.id).toBe('any-id');
+    expect(result.data.description).toBe('  New Todo  ');
     expect(result.data.createdAt).toMatch(
-      /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/
+      /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/,
     );
   });
 
-  test("deve retornar validatedDescription.errors se a validação falhou", () => {
+  test('deve retornar validatedDescription.errors se a validação falhou', () => {
     // Arrange
     const { description, errors, validatedTodoDescriptionSpy } = makeMocks();
     validatedTodoDescriptionSpy.mockReturnValue({
@@ -64,28 +64,28 @@ describe("makeValidatedTodo (unit)", () => {
   });
 });
 
-const makeMocks = (description = "  New Todo  ") => {
-  const errors = ["any", "error"];
+const makeMocks = (description = '  New Todo  ') => {
+  const errors = ['any', 'error'];
 
   const todo = {
-    id: "any-id",
+    id: 'any-id',
     description,
     createdAt: new Date().toISOString(),
   };
 
   const sanitizeStrSpy = vi
-    .spyOn(sanitizeStrMod, "sanitizeStr")
+    .spyOn(sanitizeStrMod, 'sanitizeStr')
     .mockReturnValue(description);
 
   const validatedTodoDescriptionSpy = vi
-    .spyOn(validateTodoDescriptionMod, "validateTodoDescription")
+    .spyOn(validateTodoDescriptionMod, 'validateTodoDescription')
     .mockReturnValue({
       errors: [],
       success: true,
     });
 
   const makeNewTodoSpy = vi
-    .spyOn(makeNewTodoMod, "makeNewTodo")
+    .spyOn(makeNewTodoMod, 'makeNewTodo')
     .mockReturnValue(todo);
 
   return {

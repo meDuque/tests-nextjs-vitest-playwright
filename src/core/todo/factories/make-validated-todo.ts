@@ -1,7 +1,7 @@
-import { sanitizeStr } from "@/utils/sanitize-str";
-import { makeNewTodo } from "./make-new-todo";
-import { validateTodoDescription } from "../schemas/validate-todo-description";
-import type { Todo } from "../schemas/todo-contract";
+import { sanitizeStr } from '@/utils/sanitize-str';
+import type { Todo } from '../schemas/todo-contract';
+import { validateTodoDescription } from '../schemas/validate-todo-description';
+import { makeNewTodo } from './make-new-todo';
 
 export type InvalidTodo = {
   success: false;

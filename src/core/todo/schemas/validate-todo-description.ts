@@ -4,16 +4,16 @@ type ValidateTodoDescription = {
 };
 
 export function validateTodoDescription(
-  description: string
+  description: string,
 ): ValidateTodoDescription {
   const errors = [];
 
   if (!description || description.trim().length === 0) {
-    errors.push("A descrição não pode ser vazia.");
+    errors.push('A descrição não pode ser vazia.');
   }
 
   if (description.trim().length <= 3) {
-    errors.push("A descrição precisa exceder 3 caracteres.");
+    errors.push('A descrição precisa exceder 3 caracteres.');
   }
 
   return {
