@@ -8,11 +8,11 @@ export function validateTodoDescription(
 ): ValidateTodoDescription {
   const errors = [];
 
-  if (!description || description.length === 0) {
+  if (!description || description.trim().length === 0) {
     errors.push("A descrição não pode ser vazia.");
   }
 
-  if (description.length <= 3) {
+  if (description.trim().length <= 3) {
     errors.push("A descrição precisa exceder 3 caracteres.");
   }
 
