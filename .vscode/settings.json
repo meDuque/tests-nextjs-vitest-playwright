@@ -1,3 +1,8 @@
 {
-  "cSpell.words": ["geist", "logomark"]
+  "editor.defaultFormatter": "biomejs.biome",
+  "cSpell.words": [
+    "geist",
+    "logomark",
+    "precomposed"
+  ]
 }
