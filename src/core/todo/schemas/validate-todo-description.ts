@@ -8,7 +8,7 @@ export function validateTodoDescription(
 ): ValidateTodoDescription {
   const errors = [];
 
-  if (!description || description.trim().length === 0) {
+  if (!description || description.length === 0) {
     errors.push("A descrição não pode ser vazia.");
   }
 
