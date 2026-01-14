@@ -23,28 +23,45 @@ describe("makeValidatedTodo (unit)", () => {
 
   test("deve chamar a função validateTodoDescription com o retorno de sanitizeStr", () => {
     // Arrange
-    const { description, sanitizeStrSpy, validatedTodoDescriptionSpy, todo } =
+    const { description, sanitizeStrSpy, validatedTodoDescriptionSpy } =
       makeMocks();
     const sanitizeStrReturn = "retorno da sanitizeStr";
     sanitizeStrSpy.mockReturnValue(sanitizeStrReturn);
     // Act
-    const result = makeValidatedTodo(description);
-    console.log(result);
+    makeValidatedTodo(description) as ValidTodo;
     // Assert
     expect(validatedTodoDescriptionSpy).toHaveBeenCalledExactlyOnceWith(
       sanitizeStrReturn
     );
-    expect(result.success).toBe(true);
-    expect(result.data).toStrictEqual({
-      id: "any-id",
-      description: "  New Todo  ",
-      createdAt: expect.any(String),
-    });
   });
 
-  // test("deve chamar a função makeNewTodo se validateTodoDescription retornou sucesso", () => {});
+  test("deve chamar a função makeNewTodo se validateTodoDescription retornou sucesso", () => {
+    // Arrange
+    const { description } = makeMocks();
+    // Act
+    const result = makeValidatedTodo(description) as ValidTodo;
+    // Assert
+    expect(result.success).toBe(true);
+    expect(result.data.id).toBe("any-id");
+    expect(result.data.description).toBe("  New Todo  ");
+    expect(result.data.createdAt).toMatch(
+      /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/
+    );
+  });
 
-  // test("deve retornar validatedDescription.errors se a validação falhou", () => {});
+  test("deve retornar validatedDescription.errors se a validação falhou", () => {
+    // Arrange
+    const { description, errors, validatedTodoDescriptionSpy } = makeMocks();
+    validatedTodoDescriptionSpy.mockReturnValue({
+      success: false,
+      errors,
+    });
+    // Act
+    const result = makeValidatedTodo(description) as InvalidTodo;
+    // Assert
+    expect(result.success).toBe(false);
+    expect(result.errors).toBe(errors);
+  });
 });
 
 const makeMocks = (description = "  New Todo  ") => {
@@ -53,7 +70,7 @@ const makeMocks = (description = "  New Todo  ") => {
   const todo = {
     id: "any-id",
     description,
-    createdAt: "any-date",
+    createdAt: new Date().toISOString(),
   };
 
   const sanitizeStrSpy = vi
