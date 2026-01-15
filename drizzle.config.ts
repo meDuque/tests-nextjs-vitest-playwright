@@ -5,8 +5,8 @@ const { databaseFile, drizzleMigrationsFolder, drizzleSchemaFiles } =
   getFullEnv();
 
 export default defineConfig({
-  schema: drizzleSchemaFiles,
   out: drizzleMigrationsFolder,
+  schema: drizzleSchemaFiles,
   dialect: 'sqlite',
   dbCredentials: {
     url: databaseFile,

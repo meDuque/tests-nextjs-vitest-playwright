@@ -1,4 +1,3 @@
-// Drizzle Todo Table Schema for sqlite database
 import type { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
