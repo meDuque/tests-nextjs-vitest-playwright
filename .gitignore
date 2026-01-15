@@ -34,6 +34,9 @@ yarn-error.log*
 .env*
 !.env.example
 
+# Database primarily used for tests and development
+*.sqlite3
+
 # vercel
 .vercel
 
