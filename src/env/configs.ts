@@ -1,8 +1,8 @@
-import { join } from 'node:path';
+import { join } from 'path';
 
 const commonKeys = {
   drizzleSchemaFiles: [
-    join('src', 'core', 'todo', 'schemas', 'drizzle-todo-table-schema.ts'),
+    join('src', 'core', 'todo', 'schemas', 'drizzle-todo-table.schema.ts'),
   ],
   drizzleMigrationsFolder: join('src', 'db', 'drizzle', 'migrations'),
 };
