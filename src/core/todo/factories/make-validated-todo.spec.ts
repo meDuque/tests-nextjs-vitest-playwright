@@ -1,11 +1,8 @@
 import * as sanitizeStrMod from '@/utils/sanitize-str';
 import * as validateTodoDescriptionMod from '../schemas/validate-todo-description';
 import * as makeNewTodoMod from './make-new-todo';
-import {
-  type InvalidTodo,
-  makeValidatedTodo,
-  type ValidTodo,
-} from './make-validated-todo';
+import { makeValidatedTodo } from './make-validated-todo';
+import type { InvalidTodo, ValidTodo } from '../schemas/todo-contract';
 
 describe('makeValidatedTodo (unit)', () => {
   test('deve chamar a função sanitizeStr com o valor corrento', () => {
@@ -42,9 +39,9 @@ describe('makeValidatedTodo (unit)', () => {
     const result = makeValidatedTodo(description) as ValidTodo;
     // Assert
     expect(result.success).toBe(true);
-    expect(result.data.id).toBe('any-id');
-    expect(result.data.description).toBe('  New Todo  ');
-    expect(result.data.createdAt).toMatch(
+    expect(result.todo.id).toBe('any-id');
+    expect(result.todo.description).toBe('  New Todo  ');
+    expect(result.todo.createdAt).toMatch(
       /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/,
     );
   });
