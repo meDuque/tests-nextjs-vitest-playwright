@@ -20,3 +20,24 @@ export async function makeTestTodoRepository() {
     deleteTodoDb,
   };
 }
+
+export const insertTestTodos = async () => {
+  const { insertTodoDb } = await makeTestTodoRepository();
+  const todos = makeTestTodos();
+
+  await insertTodoDb().values(todos);
+
+  return todos;
+};
+
+export const makeTestTodos = () => {
+  return Array.from({ length: 5 }).map((_, index) => {
+    const newTodo = {
+      id: index.toString(),
+      description: `Todo ${index}`,
+      createdAt: `date ${index}`,
+    };
+
+    return newTodo;
+  });
+};
