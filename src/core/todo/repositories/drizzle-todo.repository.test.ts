@@ -36,19 +36,65 @@ describe('DrizzleTodoRepository (integration)', () => {
     });
   });
 
-  // describe('create', () => {
-  //   test('deve criar um TODO se os dados forem válidos', async () => {
-  //     // Implementação do teste
-  //   });
+  describe('create', () => {
+    test('deve criar um TODO se os dados forem válidos', async () => {
+      const { repository, todos } = await makeTestTodoRepository();
+      const newTodo = await repository.create(todos[0]);
 
-  //   test('deve falhar ao criar um TODO com descrição duplicada', async () => {
-  //     // Implementação do teste
-  //   });
+      expect(newTodo).toStrictEqual({
+        success: true,
+        todo: todos[0],
+      });
+    });
 
-  //   test('deve falhar ao criar um TODO com ID duplicado', async () => {
-  //     // Implementação do teste
-  //   });
-  // });
+    test('deve falhar ao criar um TODO com descrição duplicada', async () => {
+      const { repository, todos } = await makeTestTodoRepository();
+      const _newTodo = await repository.create(todos[0]);
+      const anotherTodo = {
+        id: 'any id',
+        description: todos[0].description,
+        createdAt: 'some date',
+      };
+      const result = await repository.create(anotherTodo);
+
+      expect(result).toStrictEqual({
+        success: false,
+        errors: ['Todo with the same ID or description already exists.'],
+      });
+    });
+
+    test('deve falhar ao criar um TODO com ID duplicado', async () => {
+      const { repository, todos } = await makeTestTodoRepository();
+      const _newTodo = await repository.create(todos[0]);
+      const anotherTodo = {
+        id: todos[0].id,
+        description: 'any description',
+        createdAt: 'some date',
+      };
+      const result = await repository.create(anotherTodo);
+
+      expect(result).toStrictEqual({
+        success: false,
+        errors: ['Todo with the same ID or description already exists.'],
+      });
+    });
+
+    test('deve falhar ao criar um TODO com ID e descrição duplicados', async () => {
+      const { repository, todos } = await makeTestTodoRepository();
+      const _newTodo = await repository.create(todos[0]);
+      const anotherTodo = {
+        id: todos[0].id,
+        description: todos[0].description,
+        createdAt: 'some date',
+      };
+      const result = await repository.create(anotherTodo);
+
+      expect(result).toStrictEqual({
+        success: false,
+        errors: ['Todo with the same ID or description already exists.'],
+      });
+    });
+  });
 
   // describe('remove', () => {
   //   test('deve remover um TODO se ele existir', async () => {
