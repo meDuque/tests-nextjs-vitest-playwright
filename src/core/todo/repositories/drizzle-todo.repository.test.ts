@@ -5,7 +5,6 @@ describe('DrizzleTodoRepository (integration)', () => {
     const { deleteTodoNoWhere } = await makeTestTodoRepository();
     await deleteTodoNoWhere();
   });
-
   afterAll(async () => {
     const { deleteTodoNoWhere } = await makeTestTodoRepository();
     await deleteTodoNoWhere();
