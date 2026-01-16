@@ -96,13 +96,24 @@ describe('DrizzleTodoRepository (integration)', () => {
     });
   });
 
-  // describe('remove', () => {
-  //   test('deve remover um TODO se ele existir', async () => {
-  //     // Implementação do teste
-  //   });
+  describe('remove', () => {
+    test('deve remover um TODO se ele existir', async () => {
+      const { repository, todos } = await makeTestTodoRepository();
+      await insertTestTodos();
+      const result = await repository.remove(todos[0].id);
 
-  //   test('deve falhar ao remover um TODO que não existe', async () => {
-  //     // Implementação do teste
-  //   });
-  // });
+      expect(result).toStrictEqual({ success: true, todo: todos[0] });
+    });
+
+    test('deve falhar ao remover um TODO que não existe', async () => {
+      const { repository } = await makeTestTodoRepository();
+      await insertTestTodos();
+      const result = await repository.remove('any id');
+
+      expect(result).toStrictEqual({
+        success: false,
+        errors: ['Todo not found.'],
+      });
+    });
+  });
 });
