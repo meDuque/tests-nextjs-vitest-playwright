@@ -1,3 +1,4 @@
+// biome-ignore assist/source/organizeImports: <explanation>
 import { todoTable } from '@/core/todo/schemas/drizzle-todo-table.schema';
 import { getFullEnv } from '@/env/configs';
 import Database from 'better-sqlite3';
