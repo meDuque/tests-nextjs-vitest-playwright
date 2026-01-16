@@ -1,3 +1,35 @@
 describe('DrizzleTodoRepository (integration)', () => {
-  throw new Error('Not implemented yet');
+  describe('findAll', () => {
+    test('deve retornar um array vazio se a tabela estiver limpa', async () => {
+      // Implementação do teste
+    });
+
+    test('deve retornar todos os TODOs em ordem decrescente ', async () => {
+      // Implementação do teste
+    });
+  });
+
+  describe('create', () => {
+    test('deve criar um TODO se os dados forem válidos', async () => {
+      // Implementação do teste
+    });
+
+    test('deve falhar ao criar um TODO com descrição duplicada', async () => {
+      // Implementação do teste
+    });
+
+    test('deve falhar ao criar um TODO com ID duplicado', async () => {
+      // Implementação do teste
+    });
+  });
+
+  describe('remove', () => {
+    test('deve remover um TODO se ele existir', async () => {
+      // Implementação do teste
+    });
+
+    test('deve falhar ao remover um TODO que não existe', async () => {
+      // Implementação do teste
+    });
+  });
 });
