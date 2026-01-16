@@ -1,6 +1,16 @@
 import { makeTestTodoRepository } from '@/core/___tests__/utils/make-test-todo-repository';
 
 describe('DrizzleTodoRepository (integration)', () => {
+  beforeEach(async () => {
+    const { deleteTodoNoWhere } = await makeTestTodoRepository();
+    await deleteTodoNoWhere();
+  });
+
+  afterAll(async () => {
+    const { deleteTodoNoWhere } = await makeTestTodoRepository();
+    await deleteTodoNoWhere();
+  });
+
   describe('findAll', () => {
     test('deve retornar um array vazio se a tabela estiver limpa', async () => {
       // TODO Implementação do teste
