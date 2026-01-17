@@ -36,7 +36,14 @@ describe('createTodoAction (unit)', () => {
     expect(result).toStrictEqual(successResult);
   });
 
-  test('deve retornar o mesmo resultado do createTodoUseCase em caso de erro', async () => {});
+  test('deve retornar o mesmo resultado do createTodoUseCase em caso de erro', async () => {
+    const { createTodoUseCaseSpy, errorResult } = makeMocks();
+    createTodoUseCaseSpy.mockResolvedValue(errorResult);
+    const expectedParamCall = 'usecase should be called with this description';
+    const result = await createTodoAction(expectedParamCall);
+
+    expect(result).toStrictEqual(errorResult);
+  });
 });
 
 const makeMocks = () => {
