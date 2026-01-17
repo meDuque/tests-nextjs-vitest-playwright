@@ -28,7 +28,13 @@ describe('createTodoAction (unit)', () => {
     expect(revalidatePathMocked).toHaveBeenCalledExactlyOnceWith('/');
   });
 
-  test('deve retornar o mesmo resultado do createTodoUseCase em caso de sucesso', async () => {});
+  test('deve retornar o mesmo resultado do createTodoUseCase em caso de sucesso', async () => {
+    const { successResult } = makeMocks();
+    const expectedParamCall = 'usecase should be called with this description';
+    const result = await createTodoAction(expectedParamCall);
+
+    expect(result).toStrictEqual(successResult);
+  });
 
   test('deve retornar o mesmo resultado do createTodoUseCase em caso de erro', async () => {});
 });
