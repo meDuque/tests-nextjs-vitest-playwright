@@ -1,6 +1,7 @@
 import { revalidatePath } from 'next/cache';
 import type { InvalidTodo, ValidTodo } from '../schemas/todo.contract';
 import * as createTodoUseCaseMod from '../usecases/create-todo.usecase';
+import { createTodoAction } from './create-todo.action';
 
 vi.mock('next/cache', () => {
   return {
@@ -9,7 +10,15 @@ vi.mock('next/cache', () => {
 });
 
 describe('createTodoAction (unit)', () => {
-  test('deve chamar o createTodoUseCase com os valores corretos', async () => {});
+  test('deve chamar o createTodoUseCase com os valores corretos', async () => {
+    const { createTodoUseCaseSpy } = makeMocks();
+    const expectedParamCall = 'usecase should be called with this description';
+    await createTodoAction(expectedParamCall);
+
+    expect(createTodoUseCaseSpy).toHaveBeenCalledExactlyOnceWith(
+      expectedParamCall,
+    );
+  });
 
   test('deve chamar o revalidatePath se o usecase retornar sucesso', async () => {});
 
@@ -33,7 +42,7 @@ const makeMocks = () => {
     errors: ['any', 'error'],
   } as InvalidTodo;
 
-  const createTodoUseCase = vi
+  const createTodoUseCaseSpy = vi
     .spyOn(createTodoUseCaseMod, 'createTodoUseCase')
     .mockResolvedValue(successResult);
 
@@ -42,7 +51,7 @@ const makeMocks = () => {
   return {
     successResult,
     errorResult,
-    createTodoUseCase,
+    createTodoUseCaseSpy,
     revalidatePathMocked,
   };
 };
