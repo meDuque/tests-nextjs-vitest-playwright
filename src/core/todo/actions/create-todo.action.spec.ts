@@ -20,7 +20,13 @@ describe('createTodoAction (unit)', () => {
     );
   });
 
-  test('deve chamar o revalidatePath se o usecase retornar sucesso', async () => {});
+  test('deve chamar o revalidatePath se o usecase retornar sucesso', async () => {
+    const { revalidatePathMocked } = makeMocks();
+    const description = 'usecase should be called with this description';
+    await createTodoAction(description);
+
+    expect(revalidatePathMocked).toHaveBeenCalledExactlyOnceWith('/');
+  });
 
   test('deve retornar o mesmo resultado do createTodoUseCase em caso de sucesso', async () => {});
 
