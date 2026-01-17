@@ -4,6 +4,7 @@
     "geist",
     "logomark",
     "precomposed",
-    "turbopack"
+    "turbopack",
+    "usecase"
   ]
 }
