@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import type { InvalidTodo, ValidTodo } from '../schemas/todo.contract';
 import * as createTodoUseCaseMod from '../usecases/create-todo.usecase';
 
@@ -36,5 +37,12 @@ const makeMocks = () => {
     .spyOn(createTodoUseCaseMod, 'createTodoUseCase')
     .mockResolvedValue(successResult);
 
-  return { successResult, errorResult, createTodoUseCase };
+  const revalidatePathMocked = vi.mocked(revalidatePath);
+
+  return {
+    successResult,
+    errorResult,
+    createTodoUseCase,
+    revalidatePathMocked,
+  };
 };
