@@ -19,4 +19,13 @@ describe('createTodoUseCase (integration)', () => {
     expect(result.success).toBe(false);
     expect(result.errors).toHaveLength(2); // Espera 2 erros de validação
   });
+
+  test('deve retornar o TODO se a validação passar', async () => {
+    const description = 'Comprar leite';
+    const result = (await createTodoUseCase(description)) as ValidTodo; // descrição válida
+
+    expect(result.success).toBe(true);
+    expect(result.todo).toBeDefined();
+    expect(result.todo.description).toBe(description);
+  });
 });
