@@ -28,4 +28,19 @@ describe('createTodoUseCase (integration)', () => {
     expect(result.todo).toBeDefined();
     expect(result.todo.description).toBe(description);
   });
+
+  test('deve retornar um erro se o repositorio falhar', async () => {
+    // Cria um TODO válido primeiro
+    const description = 'Comprar leite';
+    (await createTodoUseCase(description)) as ValidTodo;
+    // Tenta criar o mesmo TODO novamente para causar um erro de duplicação
+    const result = (await createTodoUseCase(description)) as InvalidTodo;
+
+    expect(result.success).toBe(false);
+    expect(result.errors).toBeDefined();
+    expect(result.errors).toHaveLength(1);
+    expect(result.errors?.[0]).toBe(
+      'Todo with the same ID or description already exists.',
+    );
+  });
 });
