@@ -1,9 +1,9 @@
 /// <reference types="vitest" />
 // Garante que o TypeScript reconheça os tipos do Vitest
 
-import react from '@vitejs/plugin-react'
-import path from 'path'
-import { defineConfig } from 'vitest/config'
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import { defineConfig } from 'vitest/config';
 
 // Carrega variáveis de ambiente antes de tudo
 // Estou usando a linha de comando para isso (mas deixei aqui caso queira)
@@ -64,6 +64,7 @@ export default defineConfig({
         '**/*.type.{ts,tsx}',
         '**/*.types.{ts,tsx}',
         '**/*.contract.{ts,tsx}',
+        '**/*.contract.*{ts,tsx}',
         '**/*.protocol.{ts,tsx}',
         '**/*.interface.{ts,tsx}',
 
@@ -96,4 +97,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
-})
+});
