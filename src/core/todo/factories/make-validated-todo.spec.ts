@@ -1,5 +1,5 @@
 import * as sanitizeStrMod from '@/utils/sanitize-str';
-import type { InvalidTodo, ValidTodo } from '../schemas/todo-contract';
+import type { InvalidTodo, ValidTodo } from '../schemas/todo.contract';
 import * as validateTodoDescriptionMod from '../schemas/validate-todo-description';
 import * as makeNewTodoMod from './make-new-todo';
 import { makeValidatedTodo } from './make-validated-todo';

@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import type { DrizzleDatabase } from '@/db';
 import { todoTable } from '../schemas/drizzle-todo-table.schema';
-import type { Todo, TodoPresenter } from '../schemas/todo-contract';
+import type { Todo, TodoPresenter } from '../schemas/todo.contract';
 import type { TodoRepository } from './todo.contract.repository';
 
 export class DrizzleTodoRepository implements TodoRepository {

@@ -1,4 +1,4 @@
-import type { Todo, TodoPresenter } from '../schemas/todo-contract';
+import type { Todo, TodoPresenter } from '../schemas/todo.contract';
 
 export interface FindAllTodosRepository {
   findAll(): Promise<Todo[]>;
@@ -13,6 +13,4 @@ export interface DeleteTodoRepository {
 }
 
 export interface TodoRepository
-  extends FindAllTodosRepository,
-    CreateTodoRepository,
-    DeleteTodoRepository {}
+  extends FindAllTodosRepository, CreateTodoRepository, DeleteTodoRepository {}
