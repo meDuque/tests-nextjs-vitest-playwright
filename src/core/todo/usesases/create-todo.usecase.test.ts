@@ -1,6 +1,6 @@
+import { makeTestTodoRepository } from '@/core/___tests__/utils/make-test-todo-repository';
 import type { InvalidTodo, ValidTodo } from '../schemas/todo-contract';
 import { createTodoUseCase } from './create-todo.usecase';
-import { makeTestTodoRepository } from '@/core/___tests__/utils/make-test-todo-repository';
 
 describe('createTodoUseCase (integration)', () => {
   beforeEach(async () => {
@@ -12,7 +12,6 @@ describe('createTodoUseCase (integration)', () => {
     await deleteTodoNoWhere();
   });
 
-  // TODO Tests for createTodoUseCase
   test('deve retornar erro se a validação falhar', async () => {
     const result = (await createTodoUseCase('')) as InvalidTodo; // descrição inválida
 
