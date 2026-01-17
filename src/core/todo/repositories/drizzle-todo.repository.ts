@@ -11,8 +11,6 @@ export class DrizzleTodoRepository implements TodoRepository {
     this.db = db;
   }
 
-  helper() {}
-
   async findAll(): Promise<Todo[]> {
     const todos = await this.db.query.todo.findMany({
       orderBy: (todo, { desc }) => [
