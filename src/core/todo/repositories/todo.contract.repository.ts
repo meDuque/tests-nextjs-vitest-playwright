@@ -13,4 +13,6 @@ export interface DeleteTodoRepository {
 }
 
 export interface TodoRepository
-  extends FindAllTodosRepository, CreateTodoRepository, DeleteTodoRepository {}
+  extends FindAllTodosRepository,
+    CreateTodoRepository,
+    DeleteTodoRepository {}
