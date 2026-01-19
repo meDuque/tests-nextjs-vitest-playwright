@@ -1,5 +1,5 @@
 import { makeTestTodoRepository } from '@/core/___tests__/utils/make-test-todo-repository';
-import { deleteTodoUsecase } from './delete-todo.usecase';
+import { deleteTodoUseCase } from './delete-todo.usecase';
 
 describe('deleteTodoUseCase (integration)', () => {
   beforeEach(async () => {
@@ -12,7 +12,7 @@ describe('deleteTodoUseCase (integration)', () => {
   });
 
   test('deve retornar erro se o ID for inválido', async () => {
-    const result = await deleteTodoUsecase('');
+    const result = await deleteTodoUseCase('');
 
     expect(result).toStrictEqual({
       success: false,
@@ -24,11 +24,20 @@ describe('deleteTodoUseCase (integration)', () => {
     const { insertTodoDb, todos } = await makeTestTodoRepository();
     await insertTodoDb().values(todos);
 
-    const result = await deleteTodoUsecase(todos[0].id);
+    const result = await deleteTodoUseCase(todos[0].id);
 
     expect(result).toStrictEqual({
       success: true,
       todo: todos[0],
+    });
+  });
+
+  test('deve retornar erro se o todo não existe na base de dados', async () => {
+    const result = await deleteTodoUseCase('this-does-not-exist');
+
+    expect(result).toStrictEqual({
+      success: false,
+      errors: ['Todo not found.'],
     });
   });
 });
