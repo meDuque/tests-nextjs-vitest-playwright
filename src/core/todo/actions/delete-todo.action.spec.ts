@@ -27,6 +27,14 @@ describe('deleteTodoAction (unit)', () => {
 
     expect(revalidatePathMocked).toHaveBeenCalledExactlyOnceWith('/');
   });
+
+  test('deve retornar o mesmo resultado do deleteTodoUseCase em caso de sucesso', async () => {
+    const { successResult } = makeMocks();
+    const expectedParamCall = 'usecase should be called with this description';
+    const result = await deleteTodoAction(expectedParamCall);
+
+    expect(result).toStrictEqual(successResult);
+  });
 });
 
 const makeMocks = () => {
