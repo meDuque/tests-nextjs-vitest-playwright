@@ -1,6 +1,4 @@
-import { revalidatePath } from 'next/cache';
-import type { InvalidTodo, ValidTodo } from '../schemas/todo.contract';
-import * as deleteTodoUseCaseMod from '../usecases/delete-todo.usecase';
+import { makeTestTodoMocks } from '@/core/___tests__/utils/make-test-todo-mocks';
 import { deleteTodoAction } from './delete-todo.action';
 
 vi.mock('next/cache', () => {
@@ -11,7 +9,7 @@ vi.mock('next/cache', () => {
 
 describe('deleteTodoAction (unit)', () => {
   test('deve chamar o deleteTodoUseCase com os valores corretos', async () => {
-    const { deleteTodoUseCaseSpy } = makeMocks();
+    const { deleteTodoUseCaseSpy } = makeTestTodoMocks();
     const expectedParamCall = 'usecase should be called with this description';
     await deleteTodoAction(expectedParamCall);
 
@@ -21,7 +19,7 @@ describe('deleteTodoAction (unit)', () => {
   });
 
   test('deve chamar o revalidatePath se o usecase retornar sucesso', async () => {
-    const { revalidatePathMocked } = makeMocks();
+    const { revalidatePathMocked } = makeTestTodoMocks();
     const description = 'usecase should be called with this description';
     await deleteTodoAction(description);
 
@@ -29,39 +27,10 @@ describe('deleteTodoAction (unit)', () => {
   });
 
   test('deve retornar o mesmo resultado do deleteTodoUseCase em caso de sucesso', async () => {
-    const { successResult } = makeMocks();
+    const { successResult } = makeTestTodoMocks();
     const expectedParamCall = 'usecase should be called with this description';
     const result = await deleteTodoAction(expectedParamCall);
 
     expect(result).toStrictEqual(successResult);
   });
 });
-
-const makeMocks = () => {
-  const successResult = {
-    success: true,
-    todo: {
-      id: 'any-id',
-      description: 'any-description',
-      createdAt: 'any-date',
-    },
-  } as ValidTodo;
-
-  const errorResult = {
-    success: false,
-    errors: ['any', 'error'],
-  } as InvalidTodo;
-
-  const deleteTodoUseCaseSpy = vi
-    .spyOn(deleteTodoUseCaseMod, 'deleteTodoUseCase')
-    .mockResolvedValue(successResult);
-
-  const revalidatePathMocked = vi.mocked(revalidatePath);
-
-  return {
-    successResult,
-    errorResult,
-    deleteTodoUseCaseSpy,
-    revalidatePathMocked,
-  };
-};
