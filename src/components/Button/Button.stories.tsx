@@ -4,8 +4,8 @@ import { Button } from '.';
 const meta = {
   component: Button,
   decorators: [
-    (Story) => (
-      <div className="max-w-screen-md mx-auto p-12 flex items-center justify-center">
+    Story => (
+      <div className='max-w-screen-md mx-auto p-12 flex items-center justify-center'>
         <Story />
       </div>
     ),
