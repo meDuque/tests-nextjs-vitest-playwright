@@ -89,6 +89,44 @@ describe('<Button />', () => {
     });
   });
 
+  describe('size (tamanhos)', () => {
+    test('tamanho sm deve ser menor', async () => {
+      render(
+        <Button size='sm' title='o botão'>
+          Enviar formulário
+        </Button>,
+      );
+
+      const button = screen.getByTitle(/o botão/i);
+
+      expect(button).toHaveClass(SIZE_SM_CLASSES);
+    });
+
+    test('tamanho md deve ser médio', async () => {
+      render(
+        <Button size='md' title='o botão'>
+          Enviar formulário
+        </Button>,
+      );
+
+      const button = screen.getByTitle(/o botão/i);
+
+      expect(button).toHaveClass(SIZE_MEDIUM_CLASSES);
+    });
+
+    test('tamanho lg deve ser grande', async () => {
+      render(
+        <Button size='lg' title='o botão'>
+          Enviar formulário
+        </Button>,
+      );
+
+      const button = screen.getByTitle(/o botão/i);
+
+      expect(button).toHaveClass(SIZE_LG_CLASSES);
+    });
+  });
+
   // describe('disabled', () => {
   //   test('classes para estado desativado estão corretas', async () => {});
   // });
