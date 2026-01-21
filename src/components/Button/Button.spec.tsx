@@ -5,6 +5,7 @@
 // Logo, esse teste é necessário e justificado.
 
 import { render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { Button } from '.';
 
 describe('<Button />', () => {
@@ -24,7 +25,22 @@ describe('<Button />', () => {
       // expect(button).toMatchSnapshot();
     });
 
-    // test('verifica se as propriedades padrão do JSX funcionam corretamente', async () => {});
+    test('verifica se as propriedades padrão do JSX funcionam corretamente', async () => {
+      const handleClick = vi.fn();
+      render(
+        <Button onClick={handleClick} type='submit' aria-hidden='false'>
+          Enviar formulário
+        </Button>,
+      );
+
+      const button = screen.getByText(/enviar formulário/i);
+      await userEvent.click(button);
+      await userEvent.click(button);
+
+      expect(handleClick).toHaveBeenCalledTimes(2);
+      expect(button).toHaveAttribute('type', 'submit');
+      expect(button).toHaveAttribute('aria-hidden', 'false');
+    });
   });
 
   // describe('variants (cores)', () => {
