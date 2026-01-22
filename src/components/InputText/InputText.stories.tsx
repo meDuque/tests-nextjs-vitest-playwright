@@ -19,7 +19,15 @@ export default meta;
 type Story = StoryObj<typeof InputText>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    type: 'text',
+    labelText: 'Input label',
+    errorMessage: '',
+    placeholder: 'Digite Algo...',
+    required: true,
+    disabled: false,
+    readOnly: false,
+  },
 };
 
 export const withError: Story = {
