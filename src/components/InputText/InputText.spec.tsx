@@ -40,8 +40,18 @@ describe('<InputText />', () => {
       expect(el).toHaveAttribute('placeholder', 'novo placeholder');
     });
 
-    test('Deve renderizar sem placeholder', async () => {});
-    test('Deve renderizar sem label', async () => {});
+    test('Deve renderizar sem placeholder', async () => {
+      const el = input({ placeholder: undefined });
+
+      expect(el).not.toHaveAttribute('placeholder');
+    });
+    test('Deve renderizar sem label', async () => {
+      const el = input({ labelText: undefined });
+      const label = screen.queryByRole('novo label');
+
+      expect(el).toBeInTheDocument();
+      expect(label).not.toBeInTheDocument();
+    });
 
     // test('Deve usar labelText comp aria-label quando possível', async () => {});
     // test('Deve usar placeholder como fallback de aria-label', async () => {});
