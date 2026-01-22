@@ -27,8 +27,18 @@ const input = (p?: Props) => renderInput(p).input;
 
 describe('<InputText />', () => {
   describe('Comportamento padrão', () => {
-    test('Deve renderizar com label', async () => {});
-    test('Deve renderizar com placeholder', async () => {});
+    test('Deve renderizar com label', async () => {
+      const el = input({ labelText: 'novo label' });
+      const label = screen.getByLabelText(/novo label/i);
+
+      expect(el).toBeInTheDocument();
+      expect(label).toBeInTheDocument();
+    });
+    test('Deve renderizar com placeholder', async () => {
+      const el = input({ placeholder: 'novo placeholder' });
+
+      expect(el).toHaveAttribute('placeholder', 'novo placeholder');
+    });
 
     test('Deve renderizar sem placeholder', async () => {});
     test('Deve renderizar sem label', async () => {});
