@@ -4,7 +4,13 @@ import { InputText } from '.';
 const meta: Meta<typeof InputText> = {
   title: 'Components/Forms/InputText',
   component: InputText,
-  decorators: [Story => <Story />],
+  decorators: [
+    Story => (
+      <div className='max-w-5xl mx-auto p-12'>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
   argTypes: {},
 };
