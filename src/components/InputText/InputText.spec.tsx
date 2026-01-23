@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { InputText, type InputTextProps } from '.';
+import userEvent from '@testing-library/user-event';
 
 type Props = Partial<InputTextProps>;
 
@@ -98,9 +99,15 @@ describe('<InputText />', () => {
     });
   });
 
-  // describe('Comportamento interativo', () => {
-  //   test('Deve atualizar o valor conforme o usuário digita', async () => {});
-  // });
+  describe('Comportamento interativo', () => {
+    test('Deve atualizar o valor conforme o usuário digita', async () => {
+      const user = userEvent.setup();
+      const el = input();
+      await user.type(el, 'texto');
+
+      expect(el).toHaveValue('texto');
+    });
+  });
 
   // describe('Estados visuais', () => {
   //   test('Deve aplicar classes visuais quando desabilitado', async () => {});
