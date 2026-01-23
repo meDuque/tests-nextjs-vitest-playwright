@@ -53,11 +53,25 @@ describe('<InputText />', () => {
       expect(label).not.toBeInTheDocument();
     });
 
-    // test('Deve usar labelText comp aria-label quando possível', async () => {});
-    // test('Deve usar placeholder como fallback de aria-label', async () => {});
+    test('Deve usar labelText comp aria-label quando possível', async () => {
+      expect(input()).toHaveAttribute('aria-label', 'label');
+    });
+    test('Deve usar placeholder como fallback de aria-label', async () => {
+      expect(input({ labelText: undefined })).toHaveAttribute(
+        'aria-label',
+        'placeholder',
+      );
+    });
 
-    // test('Deve exibir o valor padrão corretamente', async () => {});
-    // test('Deve aceitar outras props do JSX (data-testid, max-length)', async () => {});
+    test('Deve exibir o valor padrão corretamente', async () => {
+      expect(input({ defaultValue: 'valor' })).toHaveValue('valor');
+    });
+    test('Deve aceitar outras props do JSX (data-testid, max-length)', async () => {
+      const el = input({ name: 'name', maxLength: 10 });
+
+      expect(el).toHaveAttribute('name', 'name');
+      expect(el).toHaveAttribute('maxLength', '10');
+    });
   });
 
   // describe('Acessibilidade', () => {
