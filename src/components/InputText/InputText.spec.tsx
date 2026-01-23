@@ -109,11 +109,23 @@ describe('<InputText />', () => {
     });
   });
 
-  // describe('Estados visuais', () => {
-  //   test('Deve aplicar classes visuais quando desabilitado', async () => {});
-  //   test('Deve aplicar classes visuais quando readonly', async () => {});
+  describe('Estados visuais', () => {
+    test('Deve aplicar classes visuais quando desabilitado', async () => {
+      const el = input({ disabled: true });
+      expect(el).toHaveClass('disabled:bg-slate-200 disabled:text-slate-400');
+    });
+    test('Deve aplicar classes visuais quando readonly', async () => {
+      const el = input({ readOnly: true });
+      expect(el).toHaveClass('read-only:bg-slate-100');
+    });
 
-  //   test('Deve adicionar classe de erro (ring vermelha) quando inválido', async () => {});
-  //   test('Deve manter classes personalizadas do desenvolvedor', async () => {});
-  // });
+    test('Deve adicionar classe de erro (ring vermelha) quando inválido', async () => {
+      const el = input({ errorMessage: 'Erro' });
+      expect(el).toHaveClass('ring-red-500 focus:ring-red-700');
+    });
+    test('Deve manter classes personalizadas do desenvolvedor', async () => {
+      const el = input({ className: 'custom' });
+      expect(el).toHaveClass('custom');
+    });
+  });
 });
