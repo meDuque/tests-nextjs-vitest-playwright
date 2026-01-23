@@ -74,11 +74,29 @@ describe('<InputText />', () => {
     });
   });
 
-  // describe('Acessibilidade', () => {
-  //   test('Não deve exibir mensagem de erro por padrão', async () => {});
-  //   test('Não deve marcar o input como inválido por padrão', async () => {});
-  //   test('Deve renderizar a mensagem de erro quando `errorMessage` é passada', async () => {});
-  // });
+  describe('Acessibilidade', () => {
+    test('Não deve exibir mensagem de erro por padrão', async () => {
+      const el = input();
+
+      expect(el).toHaveAttribute('aria-invalid', 'false');
+      expect(el).not.toHaveAttribute('aria-describedby');
+      expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    });
+    test('Não deve marcar o input como inválido por padrão', async () => {
+      const el = input();
+
+      expect(el).toHaveAttribute('aria-invalid', 'false');
+    });
+    test('Deve renderizar a mensagem de erro quando `errorMessage` é passada', async () => {
+      const el = input({ errorMessage: 'Tem erro' });
+      const error = screen.getByRole('alert');
+      const errorId = error.getAttribute('id');
+
+      expect(el).toHaveAttribute('aria-invalid', 'true');
+      expect(el).toHaveAttribute('aria-describedby', errorId);
+      expect(error).toBeInTheDocument();
+    });
+  });
 
   // describe('Comportamento interativo', () => {
   //   test('Deve atualizar o valor conforme o usuário digita', async () => {});
