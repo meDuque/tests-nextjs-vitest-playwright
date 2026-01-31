@@ -5,11 +5,10 @@ import "./storybook.css";
 const preview: Preview = {
   parameters: {
     backgrounds: {
-      values: [
-        // { name: 'dark', value: '#000000' },
-        { name: "light", value: "ffffff" },
-      ],
-      default: "light",
+      options: {
+        light: // { name: 'dark', value: '#000000' },
+        { name: "light", value: "ffffff" }
+      }
     },
     controls: {
       matchers: {
@@ -18,6 +17,12 @@ const preview: Preview = {
       },
     },
   },
+
+  initialGlobals: {
+    backgrounds: {
+      value: "light"
+    }
+  }
 };
 
 export default preview;
