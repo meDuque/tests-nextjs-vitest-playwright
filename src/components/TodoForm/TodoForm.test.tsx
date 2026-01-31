@@ -74,7 +74,13 @@ describe('<TodoForm /> (integration)', () => {
     expect(input).toHaveAttribute('aria-describedby', error.id);
   });
 
-  // test('deve manter o texto no input se a action retornar erro', async () => {});
+  test('deve manter o texto no input se a action retornar erro', async () => {
+    const { input, btn } = renderForm({ success: false });
+    await user.type(input, 'tarefa');
+    await user.click(btn);
+
+    expect(input).toHaveValue('tarefa');
+  });
 });
 
 interface RenderForm {
