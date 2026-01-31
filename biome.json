@@ -42,7 +42,12 @@
   },
   "linter": {
     "enabled": true,
-    "rules": { "recommended": true, "style": { "noNonNullAssertion": "off" } }
+    "rules": {
+      "recommended": true,
+      "style": {
+        "noNonNullAssertion": "off"
+      }
+    }
   },
   "javascript": {
     "formatter": {
@@ -65,6 +70,10 @@
   },
   "assist": {
     "enabled": true,
-    "actions": { "source": { "organizeImports": "on" } }
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   }
 }
