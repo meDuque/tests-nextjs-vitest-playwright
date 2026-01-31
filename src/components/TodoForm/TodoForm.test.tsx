@@ -54,7 +54,14 @@ describe('<TodoForm /> (integration)', () => {
     await waitFor(() => expect(input).toBeEnabled());
   });
 
-  // test('deve trocar o texto do botão enquanto envia a action', async () => {});
+  test('deve trocar o texto do botão enquanto envia a action', async () => {
+    const { input, btn } = renderForm({ delay: 15 });
+    await user.type(input, 'tarefa');
+    await user.click(btn);
+
+    await waitFor(() => expect(btn).toHaveAccessibleName('Criando tarefa...'));
+    await waitFor(() => expect(btn).toHaveAccessibleName('Criar tarefa'));
+  });
 
   // test('deve mostrar o erro quando a action retornar erro', async () => {});
 
