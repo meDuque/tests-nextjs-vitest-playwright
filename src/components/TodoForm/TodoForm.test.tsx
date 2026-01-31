@@ -37,7 +37,7 @@ describe('<TodoForm /> (integration)', () => {
   });
 
   test('deve desativar o botão enquanto envia a action', async () => {
-    const { input, btn } = renderForm({ delay: 10 });
+    const { input, btn } = renderForm({ delay: 15 });
     await user.type(input, 'tarefa');
     await user.click(btn);
 
@@ -45,7 +45,14 @@ describe('<TodoForm /> (integration)', () => {
     await waitFor(() => expect(btn).toBeEnabled());
   });
 
-  // test('deve desativar o input enquanto envia a action', async () => {});
+  test('deve desativar o input enquanto envia a action', async () => {
+    const { input, btn } = renderForm({ delay: 15 });
+    await user.type(input, 'tarefa');
+    await user.click(btn);
+
+    await waitFor(() => expect(input).toBeDisabled());
+    await waitFor(() => expect(input).toBeEnabled());
+  });
 
   // test('deve trocar o texto do botão enquanto envia a action', async () => {});
 
