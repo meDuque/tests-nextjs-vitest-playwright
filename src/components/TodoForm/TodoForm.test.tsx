@@ -55,7 +55,7 @@ describe('<TodoForm /> (integration)', () => {
   });
 
   test('deve trocar o texto do botão enquanto envia a action', async () => {
-    const { input, btn } = renderForm({ delay: 15 });
+    const { input, btn } = renderForm({ delay: 20 });
     await user.type(input, 'tarefa');
     await user.click(btn);
 
@@ -63,7 +63,16 @@ describe('<TodoForm /> (integration)', () => {
     await waitFor(() => expect(btn).toHaveAccessibleName('Criar tarefa'));
   });
 
-  // test('deve mostrar o erro quando a action retornar erro', async () => {});
+  test('deve mostrar o erro quando a action retornar erro', async () => {
+    const { input, btn } = renderForm({ success: false });
+    await user.type(input, 'tarefa');
+    await user.click(btn);
+
+    const error = await screen.findByRole('alert');
+
+    expect(error).toHaveTextContent('falha ao criar todo');
+    expect(input).toHaveAttribute('aria-describedby', error.id);
+  });
 
   // test('deve manter o texto no input se a action retornar erro', async () => {});
 });
