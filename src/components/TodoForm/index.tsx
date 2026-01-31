@@ -11,21 +11,49 @@ export type TodoFormProps = {
 };
 
 export function TodoForm({ action }: TodoFormProps) {
+  const [pending, startTransition] = useTransition();
+  const [inputError, setInputError] = useState('');
+  const ref = useRef<HTMLInputElement>(null);
+
+  function handleCreateTodo(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const input = ref.current;
+
+    if (!input) return;
+
+    const description = sanitizeStr(input.value);
+
+    startTransition(async () => {
+      const result = await action(description);
+
+      if (!result.success) {
+        if (typeof result.errors === 'undefined') return;
+        setInputError(result.errors[0]);
+
+        return;
+      }
+
+      input.value = '';
+      setInputError('');
+    });
+  }
+
   return (
-    <form onSubmit={'handleCreateTodo'} className='flex flex-col flex-1 gap-6'>
+    <form onSubmit={handleCreateTodo} className='flex flex-col flex-1 gap-6'>
       <InputText
         name='description'
         labelText='Tarefa'
         placeholder='Digite sua tarefa'
-        disabled={'pending'}
-        errorMessage={'inputError'}
-        ref={'ref'}
+        disabled={pending}
+        errorMessage={inputError}
+        ref={ref}
       />
 
-      <Button type='submit' disabled={'pending'}>
+      <Button type='submit' disabled={pending}>
         <CirclePlusIcon />
-        {!'pending' && <span>Criar tarefa</span>}
-        {'pending' && <span>Criando tarefa...</span>}
+        {!pending && <span>Criar tarefa</span>}
+        {pending && <span>Criando tarefa...</span>}
       </Button>
     </form>
   );
