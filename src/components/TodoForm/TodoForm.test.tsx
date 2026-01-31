@@ -1,5 +1,5 @@
 'use client';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TodoForm } from '.';
 
@@ -36,7 +36,14 @@ describe('<TodoForm /> (integration)', () => {
     expect(input).toHaveValue('');
   });
 
-  // test('deve desativar o botão enquanto envia a action', async () => {});
+  test('deve desativar o botão enquanto envia a action', async () => {
+    const { input, btn } = renderForm({ delay: 10 });
+    await user.type(input, 'tarefa');
+    await user.click(btn);
+
+    await waitFor(() => expect(btn).toBeDisabled());
+    await waitFor(() => expect(btn).toBeEnabled());
+  });
 
   // test('deve desativar o input enquanto envia a action', async () => {});
 
