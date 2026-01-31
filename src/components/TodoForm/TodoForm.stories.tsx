@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import type { CreateTodoAction } from '@/core/todo/actions/todo.action.types';
 import { TodoForm } from '.';
 
