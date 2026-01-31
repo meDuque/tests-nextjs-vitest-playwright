@@ -22,13 +22,19 @@ describe('<TodoForm /> (integration)', () => {
 
   test('deve cortar espaços do inicio e fim da descrição (trim)', async () => {
     const { action, input, btn } = renderForm();
-    await user.type(input, '          tarefa          ');
+    await user.type(input, '    tarefa    ');
     await user.click(btn);
 
     expect(action).toHaveBeenCalledExactlyOnceWith('tarefa');
   });
 
-  // test('deve limpar o input se o formulario retornar sucesso', async () => {});
+  test('deve limpar o input se o formulario retornar sucesso', async () => {
+    const { input, btn } = renderForm();
+    await user.type(input, 'tarefa');
+    await user.click(btn);
+
+    expect(input).toHaveValue('');
+  });
 
   // test('deve desativar o botão enquanto envia a action', async () => {});
 
