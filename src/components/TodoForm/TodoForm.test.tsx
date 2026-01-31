@@ -20,19 +20,25 @@ describe('<TodoForm /> (integration)', () => {
     expect(action).toHaveBeenCalledExactlyOnceWith('tarefa');
   });
 
-  // test('deve cortar espaços do inicio e fim da descrição (trim)', () => {});
+  test('deve cortar espaços do inicio e fim da descrição (trim)', async () => {
+    const { action, input, btn } = renderForm();
+    await user.type(input, '          tarefa          ');
+    await user.click(btn);
 
-  // test('deve limpar o input se o formulario retornar sucesso', () => {});
+    expect(action).toHaveBeenCalledExactlyOnceWith('tarefa');
+  });
 
-  // test('deve desativar o botão enquanto envia a action', () => {});
+  // test('deve limpar o input se o formulario retornar sucesso', async () => {});
 
-  // test('deve desativar o input enquanto envia a action', () => {});
+  // test('deve desativar o botão enquanto envia a action', async () => {});
 
-  // test('deve trocar o texto do botão enquanto envia a action', () => {});
+  // test('deve desativar o input enquanto envia a action', async () => {});
 
-  // test('deve mostrar o erro quando a action retornar erro', () => {});
+  // test('deve trocar o texto do botão enquanto envia a action', async () => {});
 
-  // test('deve manter o texto no input se a action retornar erro', () => {});
+  // test('deve mostrar o erro quando a action retornar erro', async () => {});
+
+  // test('deve manter o texto no input se a action retornar erro', async () => {});
 });
 
 interface RenderForm {
