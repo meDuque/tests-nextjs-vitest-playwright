@@ -12,7 +12,13 @@ describe('<TodoForm /> (integration)', () => {
     expect(btn).toBeInTheDocument();
   });
 
-  // test('deve chamar a action com os valores corretos', async () => {});
+  test('deve chamar a action com os valores corretos', async () => {
+    const { action, input, btn } = renderForm();
+    await user.type(input, 'tarefa');
+    await user.click(btn);
+
+    expect(action).toHaveBeenCalledExactlyOnceWith('tarefa');
+  });
 
   // test('deve cortar espaços do inicio e fim da descrição (trim)', () => {});
 
