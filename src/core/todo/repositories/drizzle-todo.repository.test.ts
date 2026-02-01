@@ -1,7 +1,7 @@
 import {
   insertTestTodos,
   makeTestTodoRepository,
-} from '@/core/___tests__/utils/make-test-todo-repository';
+} from '@/core/__tests__/utils/make-test-todo-repository';
 
 describe('DrizzleTodoRepository (integration)', () => {
   beforeEach(async () => {

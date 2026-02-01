@@ -1,4 +1,4 @@
-import { makeTestTodoMocks } from '@/core/___tests__/utils/make-test-todo-mocks';
+import { makeTestTodoMocks } from '@/core/__tests__/utils/make-test-todo-mocks';
 import { createTodoAction } from './create-todo.action';
 
 vi.mock('next/cache', () => {

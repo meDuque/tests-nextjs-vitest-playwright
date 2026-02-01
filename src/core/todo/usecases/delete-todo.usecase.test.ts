@@ -1,4 +1,4 @@
-import { makeTestTodoRepository } from '@/core/___tests__/utils/make-test-todo-repository';
+import { makeTestTodoRepository } from '@/core/__tests__/utils/make-test-todo-repository';
 import { deleteTodoUseCase } from './delete-todo.usecase';
 
 describe('deleteTodoUseCase (integration)', () => {
