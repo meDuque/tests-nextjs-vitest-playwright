@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from 'storybook/test';
-import type { CreateTodoAction } from '@/core/todo/actions/todo.action.types';
+import { todoActionStoryMock } from '@/core/__tests__/mocks/todo-action-story';
 import { TodoForm } from '.';
 
 const meta: Meta<typeof TodoForm> = {
@@ -26,22 +25,12 @@ type Story = StoryObj<typeof TodoForm>;
 
 export const Default: Story = {
   args: {
-    action: fn(async () => {
-      return {
-        success: true,
-        todo: { id: 'id', description: 'desc', createdAt: 'data' },
-      };
-    }) as CreateTodoAction,
+    action: todoActionStoryMock.create.success,
   },
 };
 
 export const WithError: Story = {
   args: {
-    action: fn(async () => {
-      return {
-        success: false,
-        errors: ['falha ao criar todo'],
-      };
-    }) as CreateTodoAction,
+    action: todoActionStoryMock.create.error,
   },
 };
