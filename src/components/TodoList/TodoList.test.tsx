@@ -54,6 +54,26 @@ describe('<TodoList /> (integration)', () => {
     expect(action.mock.calls[1][0]).toBe(todos[1].id);
     expect(action.mock.calls[2][0]).toBe(todos[2].id);
   });
+
+  test('deve desativar os items da lista enquanto envia a action', async () => {
+    renderList({ delay: 15 });
+
+    const list = screen.getByRole('list', { name: /lista de tarefas/i });
+    const items = screen.getAllByRole('listitem');
+    const btns = within(list).getAllByRole('button');
+    await user.click(btns[1]);
+
+    const expectedDisabledCls = 'bg-gray-200 text-gray-900 hover:scale-100';
+    const expectedEnabledCls = 'bg-amber-200 text-amber-900 hover:scale-105';
+
+    await waitFor(() => {
+      items.forEach(item => expect(item).toHaveClass(expectedDisabledCls));
+    });
+
+    await waitFor(() => {
+      items.forEach(item => expect(item).toHaveClass(expectedEnabledCls));
+    });
+  });
 });
 
 interface RenderListProps {
