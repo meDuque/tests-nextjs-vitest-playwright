@@ -56,7 +56,7 @@ describe('<TodoList /> (integration)', () => {
   });
 
   test('deve desativar os items da lista enquanto envia a action', async () => {
-    renderList({ delay: 15 });
+    renderList({ delay: 16 });
 
     const list = screen.getByRole('list', { name: /lista de tarefas/i });
     const items = screen.getAllByRole('listitem');
@@ -89,6 +89,17 @@ describe('<TodoList /> (integration)', () => {
     await waitFor(() => {
       btns.forEach(btn => expect(btn).toBeEnabled());
     });
+  });
+
+  test('deve avisar o usuário se houver erro ao apagar o TODO', async () => {
+    renderList({ success: false });
+
+    const alertFn = vi.fn();
+    vi.stubGlobal('alert', alertFn);
+    const btns = screen.getAllByRole('button');
+    await user.click(btns[1]);
+
+    expect(alertFn).toHaveBeenCalledExactlyOnceWith('falha ao apagar todo');
   });
 });
 
