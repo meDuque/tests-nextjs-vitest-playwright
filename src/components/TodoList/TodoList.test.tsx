@@ -101,6 +101,19 @@ describe('<TodoList /> (integration)', () => {
 
     expect(alertFn).toHaveBeenCalledExactlyOnceWith('falha ao apagar todo');
   });
+
+  test('não deve chamar a action se o ID for inválido, vazio ou formado apenas com espaços', async () => {
+    const { action } = renderList({
+      todos: [{ id: '     ', description: '', createdAt: '' }],
+    });
+
+    const item = screen.getByRole('listitem');
+    const btn = within(item).getByRole('button');
+
+    await user.click(btn);
+
+    expect(action).not.toHaveBeenCalled();
+  });
 });
 
 interface RenderListProps {
