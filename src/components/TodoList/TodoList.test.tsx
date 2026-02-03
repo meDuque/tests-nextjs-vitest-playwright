@@ -74,6 +74,22 @@ describe('<TodoList /> (integration)', () => {
       items.forEach(item => expect(item).toHaveClass(expectedEnabledCls));
     });
   });
+
+  test('deve desativar os botões da lista enquanto envia a action', async () => {
+    renderList({ delay: 20 });
+
+    const list = screen.getByRole('list', { name: /lista de tarefas/i });
+    const btns = within(list).getAllByRole('button');
+    await user.click(btns[1]);
+
+    await waitFor(() => {
+      btns.forEach(btn => expect(btn).toBeDisabled());
+    });
+
+    await waitFor(() => {
+      btns.forEach(btn => expect(btn).toBeEnabled());
+    });
+  });
 });
 
 interface RenderListProps {
