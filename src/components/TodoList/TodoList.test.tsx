@@ -8,8 +8,24 @@ import { TodoList } from '.';
 const user = userEvent.setup();
 
 describe('<TodoList /> (integration)', () => {
-  test('should first', () => {
-    throw new Error('Not implemented yet');
+  test('deve renderizar heading, lista e itens da lista de TODOs', async () => {
+    const { todos } = renderList();
+
+    const heading = screen.getByRole('heading', {
+      name: /lista de tarefas/i,
+      level: 1,
+    });
+    const list = screen.getByRole('list', { name: /lista de tarefas/i });
+    const items = screen.getAllByRole('listitem');
+
+    expect(heading).toBeInTheDocument();
+    expect(list).toHaveAttribute('aria-labelledby', heading.id);
+
+    expect(items).toHaveLength(todos.length);
+
+    items.forEach((item, index) => {
+      expect(item).toHaveTextContent(todos[index].description);
+    });
   });
 });
 
