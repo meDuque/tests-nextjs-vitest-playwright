@@ -27,6 +27,14 @@ describe('<TodoList /> (integration)', () => {
       expect(item).toHaveTextContent(todos[index].description);
     });
   });
+
+  test('não deve renderizar a lista de items sem TODOs', async () => {
+    renderList({ todos: [] });
+
+    const list = screen.queryByRole('list', { name: /lista de tarefas/i });
+
+    expect(list).not.toBeInTheDocument();
+  });
 });
 
 interface RenderListProps {
