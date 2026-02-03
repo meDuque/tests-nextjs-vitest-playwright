@@ -35,6 +35,25 @@ describe('<TodoList /> (integration)', () => {
 
     expect(list).not.toBeInTheDocument();
   });
+
+  test('deve chamar a action correta para cada item da lista', async () => {
+    const { action, todos } = renderList();
+
+    const items = screen.getAllByRole('listitem');
+    const btn0 = within(items[0]).getByRole('button');
+    const btn1 = within(items[1]).getByRole('button');
+    const btn2 = within(items[2]).getByRole('button');
+
+    await user.click(btn0);
+    await user.click(btn1);
+    await user.click(btn2);
+
+    expect(action).toHaveBeenCalledTimes(3);
+
+    expect(action.mock.calls[0][0]).toBe(todos[0].id);
+    expect(action.mock.calls[1][0]).toBe(todos[1].id);
+    expect(action.mock.calls[2][0]).toBe(todos[2].id);
+  });
 });
 
 interface RenderListProps {
